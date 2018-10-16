@@ -26,4 +26,9 @@ nucleo_base_cube_mx\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_ad
 nucleo_base_cube_mx\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 nucleo_base_cube_mx\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 nucleo_base_cube_mx\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
+nucleo_base_cube_mx\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
+nucleo_base_cube_mx\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 nucleo_base_cube_mx\main.o: ../Inc/gpio.h
+nucleo_base_cube_mx\main.o: ..\Drivers\MyDrivers\bouton.h
+nucleo_base_cube_mx\main.o: C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include\stm32f10x.h
+nucleo_base_cube_mx\main.o: .\RTE\_Simu_nucleo_base_cube_mx\RTE_Components.h

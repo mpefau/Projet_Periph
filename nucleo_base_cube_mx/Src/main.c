@@ -39,13 +39,16 @@
 #include "main.h"
 #include "stm32f1xx_hal.h"
 #include "gpio.h"
+#include "bouton.h"
+
 
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
-
+	GPIO_InitTypeDef GPIOB5; //Broche B4 pour le bouton en facade
+	TIM_HandleTypeDef HTim2;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 
@@ -60,7 +63,10 @@ void SystemClock_Config(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-
+void TIM2_IRQHandler(void)
+	{
+		HAL_TIM_IRQHandler(&HTim2);
+	}
 /* USER CODE END 0 */
 
 int main(void)
@@ -90,7 +96,19 @@ int main(void)
   MX_GPIO_Init();
 
   /* USER CODE BEGIN 2 */
-
+	
+	//configuration du Pin ou le bouton est branché 
+	GPIOB5.Pin = GPIO_PIN_5;
+	GPIOB5.Mode = GPIO_MODE_INPUT;
+	GPIOB5.Pull = GPIO_PULLDOWN;
+	GPIOB5.Speed = GPIO_SPEED_MEDIUM;
+	
+	InitGPIO(GPIOB5);
+	
+	initTimer2();
+	
+	
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
