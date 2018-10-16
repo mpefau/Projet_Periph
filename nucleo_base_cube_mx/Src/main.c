@@ -39,12 +39,16 @@
 #include "main.h"
 #include "stm32f1xx_hal.h"
 #include "gpio.h"
+#include "Servo.h"
 
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
+	TIM_HandleTypeDef HandleTIM2;
+	TIM_OC_InitTypeDef initPWM_patte;
+	TIM_OC_InitTypeDef initPWM_ouverture;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
@@ -90,7 +94,22 @@ int main(void)
   MX_GPIO_Init();
 
   /* USER CODE BEGIN 2 */
+	
+	// Periode de 20 ms : PSC = 99 et ARR = 14399
+	int prescaler = 99;
+	int autoreload = 14399;
+	
+	// Initialisation de TIM2 avec une periode de 20 ms
+	__HAL_RCC_TIM2_CLK_ENABLE();
+	HandleTIM2.Instance = TIM2;
 
+	HandleTIM2.Init.Prescaler = prescaler; // 0x0063
+	HandleTIM2.Init.Period = autoreload; // 0x383F
+	
+	initServos(&HandleTIM2);
+
+	ouvrirBoite(0.075);
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
