@@ -39,6 +39,7 @@
 #include "main.h"
 #include "stm32f1xx_hal.h"
 #include "gpio.h"
+#include "chenille.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -48,7 +49,16 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+	TIM_HandleTypeDef HTim3; 
+	TIM_HandleTypeDef HTim1; 
+	GPIO_InitTypeDef GPIOAPB0_Init;	//IB chenille gauche
+	GPIO_InitTypeDef GPIOAPA10_Init; //IA chenille gauche
+	GPIO_InitTypeDef GPIOAPA9_Init;	//IB chenille droite
+	GPIO_InitTypeDef GPIOAPA8_Init; //IA chenille droite
+	TIM_OC_InitTypeDef OcTIM1CH1;
+	TIM_OC_InitTypeDef OcTIM1CH2;
+	TIM_OC_InitTypeDef OcTIM1CH3;
+	TIM_OC_InitTypeDef OcTIM3CH3;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -60,12 +70,14 @@ void SystemClock_Config(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-
+void TIM1_IRQHandler(void)
+	{
+		HAL_TIM_IRQHandler(&HTim1);
+	}
 /* USER CODE END 0 */
 
 int main(void)
 {
-
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -91,6 +103,11 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
 
+
+	
+	InitChenille();
+	
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */

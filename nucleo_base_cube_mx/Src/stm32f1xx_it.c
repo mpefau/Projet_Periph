@@ -82,6 +82,13 @@ void EXTI15_10_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	/*if (HAL_GPIO_ReadPin(GPIOA, GPIOALD2_Init.Pin)==GPIO_PIN_RESET){
+		HAL_GPIO_WritePin(GPIOA, GPIOALD2_Init.Pin, GPIO_PIN_SET); 
+	} else {
+		HAL_GPIO_WritePin(GPIOA, GPIOALD2_Init.Pin, GPIO_PIN_RESET); 
+	}*/
+}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
