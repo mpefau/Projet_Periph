@@ -95,20 +95,21 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
 	
-	// Periode de 20 ms : PSC = 99 et ARR = 14399
-	int prescaler = 99;
-	int autoreload = 14399;
-	
-	// Initialisation de TIM2 avec une periode de 20 ms
-	__HAL_RCC_TIM2_CLK_ENABLE();
-	HandleTIM2.Instance = TIM2;
-
-	HandleTIM2.Init.Prescaler = prescaler; // 0x0063
-	HandleTIM2.Init.Period = autoreload; // 0x383F
-	
 	initServos(&HandleTIM2);
 
-	ouvrirBoite(0.075);
+	bouger_couvercle(RC_OUVERTURE_BOITE);
+	
+	HAL_Delay(500);
+	
+	bouger_patte(RC_PATTE_SORTIE);
+	
+	HAL_Delay(500);
+	
+	bouger_patte(RC_PATTE_RENTREE);
+	
+	HAL_Delay(500);
+	
+	bouger_couvercle(RC_FERMETURE_BOITE);
 	
   /* USER CODE END 2 */
 
