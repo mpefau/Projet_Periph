@@ -3,6 +3,7 @@
 // Initialise les servomoteurs de la boite.
 // Servo permettant d'ouvrir la boîte : pin A0
 // Servo permettant d'appuyer sur le bouon à l'aide d'une patte : pin A1
+//
 void initServos() {
 	
 		// Initialisation de TIM2 avec une periode de 20 ms

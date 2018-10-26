@@ -10,6 +10,7 @@
 #define PSC_20MS 99
 
 // Rapports cyclique des différentes commandes PWM des servos
+//
 #define RC_FERMETURE_BOITE 0.036
 #define RC_OUVERTURE_BOITE 0.075
 #define RC_PATTE_RENTREE 0.024
