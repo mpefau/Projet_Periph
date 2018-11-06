@@ -91,6 +91,16 @@ int main(void)
   MX_GPIO_Init();
 
   /* USER CODE BEGIN 2 */
+	
+	// creer et initialiser un nouvel ADC
+	ADC_HandleTypeDef HandleADC = newADC();
+	HAL_ADC_Init(&HandleADC);
+	
+	// creer le channel associé à cet ADC
+	ADC_ChannelConfTypeDef chan1 = newChan(ADC_CHANNEL_1,1,ADC_SAMPLETIME_7CYCLES_5);
+	
+		// Configurer HandleADC sur le channel 1
+	HAL_ADC_ConfigChannel(&HandleADC,&chan1);
 
   /* USER CODE END 2 */
 
