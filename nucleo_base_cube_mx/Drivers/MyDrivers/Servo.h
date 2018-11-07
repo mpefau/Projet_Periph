@@ -13,7 +13,7 @@
 //
 #define RC_FERMETURE_BOITE 0.036
 #define RC_OUVERTURE_BOITE 0.075
-#define RC_PATTE_RENTREE 0.024
+#define RC_PATTE_RENTREE 0.025
 #define RC_PATTE_SORTIE 0.05
 
 	extern TIM_HandleTypeDef HandleTIM2;
