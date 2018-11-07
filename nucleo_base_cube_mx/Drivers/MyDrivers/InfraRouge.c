@@ -34,3 +34,25 @@ ADC_ChannelConfTypeDef newChan(uint32_t channel, uint32_t rank, uint32_t samplet
 	
 	return new_chan;
 }
+
+// renvoi un timer rempli avec les paramètres
+TIM_HandleTypeDef newTimer(TIM_TypeDef * TIM, int prescaler,int autoreload) {
+	
+	TIM_HandleTypeDef new_timer;
+	new_timer.Instance = TIM;
+	new_timer.Init.Prescaler = prescaler;
+	new_timer.Init.Period = autoreload;
+	
+	return new_timer;
+}
+
+void startTimer(TIM_HandleTypeDef * timer) {
+	
+	// Configuration de timer en Time Base
+	HAL_TIM_Base_MspInit(timer);
+	// Configuration du mode de fonctionnement de timer
+	HAL_TIM_Base_Init(timer);
+	// Demarrage de timer
+	HAL_TIM_Base_Start(timer);
+	
+}

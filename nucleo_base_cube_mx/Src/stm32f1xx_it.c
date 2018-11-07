@@ -40,6 +40,9 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern TIM_HandleTypeDef timer2;
+extern ADC_HandleTypeDef HandleADC;
+extern uint32_t resultat;
 
 /******************************************************************************/
 /*            Cortex-M3 Processor Interruption and Exception Handlers         */ 
@@ -82,6 +85,27 @@ void EXTI15_10_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
+void TIM2_IRQHandler(void) {
+	HAL_TIM_IRQHandler(&timer2);
+}
 
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+	// Déclencher ADC
+	HAL_ADC_Start_IT(&HandleADC);
+}
+
+void ADC1_IRQHandler(void) {
+	HAL_ADC_IRQHandler(&HandleADC);
+}
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef * hadc) {
+	resultat = HAL_ADC_GetValue(&HandleADC);
+	HAL_ADC_Stop_IT(&HandleADC);
+	
+	if(resultat > 0x0800) {
+		LD2_GPIO_Port->ODR |= LD2_Pin;
+	} else {
+		LD2_GPIO_Port->ODR &= ~LD2_Pin;
+	}
+}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
