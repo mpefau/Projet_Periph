@@ -39,9 +39,9 @@
 #include "main.h"
 #include "stm32f1xx_hal.h"
 #include "gpio.h"
+#include "InfraRouge.h"
 
 /* USER CODE BEGIN Includes */
-#include "InfraRouge.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -116,10 +116,10 @@ int main(void)
 	HAL_ADC_Init(&HandleADC);
 	
 	// creer le channel associé à cet ADC
-	ADC_ChannelConfTypeDef chan1 = newChan(ADC_CHANNEL_1,1,ADC_SAMPLETIME_7CYCLES_5);
+	ADC_ChannelConfTypeDef chan4 = newChan(ADC_CHANNEL_4,1,ADC_SAMPLETIME_7CYCLES_5);
 	
 	// Configurer HandleADC sur le channel 1
-	HAL_ADC_ConfigChannel(&HandleADC,&chan1);
+	HAL_ADC_ConfigChannel(&HandleADC,&chan4);
 	
 	// Configuration de l'interruption sur ADC1
 	// Fixer la priorite de l'IT à 2
