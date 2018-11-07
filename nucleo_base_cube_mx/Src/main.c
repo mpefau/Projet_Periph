@@ -107,6 +107,24 @@ int main(void)
 	
 	InitChenille();
 	
+	//test marche avant et marche arriere
+	
+	SetVitesseChenille(20);
+	
+	HAL_Delay(2000);
+	
+	SetVitesseChenille(0);
+	
+	HAL_Delay(2000);
+	
+	SetVitesseChenille(-80);
+	
+	HAL_Delay(2000);
+	
+	SetVitesseChenille(0);
+	
+
+	
 	
   /* USER CODE END 2 */
 
