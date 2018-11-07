@@ -7,10 +7,10 @@
 // definition des variables 
 extern	TIM_HandleTypeDef HTim3; 
 extern	TIM_HandleTypeDef HTim1; 
-extern	GPIO_InitTypeDef GPIOAPB0_Init;	//IB chenille gauche
-extern	GPIO_InitTypeDef GPIOAPA10_Init; //IA chenille gauche
-extern	GPIO_InitTypeDef GPIOAPA9_Init;	//IA chenille droite
-extern	GPIO_InitTypeDef GPIOAPA8_Init; //IB chenille droite
+extern	GPIO_InitTypeDef GPIOAPB0_Init;	//IA chenille gauche
+extern	GPIO_InitTypeDef GPIOAPA10_Init; //IB chenille gauche
+extern	GPIO_InitTypeDef GPIOAPA9_Init;	//IB chenille droite
+extern	GPIO_InitTypeDef GPIOAPA8_Init; //IA chenille droite
 extern	TIM_OC_InitTypeDef OcTIM1CH1;
 extern	TIM_OC_InitTypeDef OcTIM1CH2;
 extern	TIM_OC_InitTypeDef OcTIM1CH3;
@@ -118,11 +118,41 @@ void initTimerChenille (void){
 
 
 void SetVitesseChenille(int speed){
-	
+	int absSpeed = speed>0?speed:-speed;
 	int Fsorti = 50; //frequence voulu entre chaque reload a la sortie du timer
 	int autoreload = 8999;
 	int prescalerDiv = SystemCoreClock/(Fsorti * (autoreload+1)) - 1; //PSC = 159
-	float rapportCyclique = 0.50;
+	float rapportCyclique = ((float) absSpeed)/100;
 	float compareValue = (autoreload + 1) * rapportCyclique - 1; //ici 674
 	
+	//affectation des rapports cyclique pour la pwm
+	
+	if (speed >0) {
+		//marche avant
+	OcTIM1CH1.Pulse= (int) compareValue ;
+	OcTIM1CH3.Pulse= (int) compareValue ;
+		//marche arrière
+	OcTIM1CH2.Pulse= (int) 0;
+	OcTIM3CH3.Pulse= (int) 0;
+	} else {
+			OcTIM3CH3.Pulse= (int) compareValue ;
+			OcTIM1CH2.Pulse= (int) compareValue ;
+
+			OcTIM1CH1.Pulse= (int) 0;
+			OcTIM1CH3.Pulse= (int) 0;
+	}
+	
+	
+	//application des configuration pour les différents channel en PWM
+	HAL_TIM_PWM_ConfigChannel(&HTim1, &OcTIM1CH1 ,TIM_CHANNEL_1);
+	HAL_TIM_PWM_ConfigChannel(&HTim1, &OcTIM1CH2 ,TIM_CHANNEL_2);
+	HAL_TIM_PWM_ConfigChannel(&HTim1, &OcTIM1CH3 ,TIM_CHANNEL_3);
+	HAL_TIM_PWM_ConfigChannel(&HTim3, &OcTIM3CH3 ,TIM_CHANNEL_3);
+	
+	
+	//lancement des timers
+	HAL_TIM_PWM_Start_IT(& HTim1,TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start_IT(& HTim1,TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start_IT(& HTim1,TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start_IT(& HTim3,TIM_CHANNEL_3);
 }
