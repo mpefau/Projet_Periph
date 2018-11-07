@@ -8,9 +8,11 @@
 #include "stm32f1xx_hal.h"
 #include "gpio.h"
 
-void initGPIO (GPIO_InitTypeDef GPIOPin);
+GPIO_InitTypeDef GPIOPB3_Init; 
 
-void initTimer2(void);
+// Bouton sur PB3
+void initGPIO ();
+
 
 
 

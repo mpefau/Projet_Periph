@@ -47,8 +47,7 @@
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
-	GPIO_InitTypeDef GPIOB5; //Broche B4 pour le bouton en facade
-	TIM_HandleTypeDef HTim2;
+	GPIO_InitTypeDef GPIOPB3_Init;  //Broche B3 pour le bouton en facade
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 
@@ -63,10 +62,17 @@ void SystemClock_Config(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-void TIM2_IRQHandler(void)
-	{
-		HAL_TIM_IRQHandler(&HTim2);
+int compteur = 0;
+void EXTI3_IRQHandler (void){
+	if(compteur == 1) {
+		GPIOA->ODR |= (0x1 << 5); //allumage de la led
+		compteur = 0;
 	}
+	else {
+		GPIOA->ODR &= ~(0x1 << 5); //extinction de la led
+		compteur = 1;
+	}
+}
 /* USER CODE END 0 */
 
 int main(void)
@@ -98,14 +104,14 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	
 	//configuration du Pin ou le bouton est branché 
-	GPIOB5.Pin = GPIO_PIN_5;
-	GPIOB5.Mode = GPIO_MODE_INPUT;
-	GPIOB5.Pull = GPIO_PULLDOWN;
-	GPIOB5.Speed = GPIO_SPEED_MEDIUM;
+
 	
-	InitGPIO(GPIOB5);
+	InitGPIO();
 	
-	initTimer2();
+		//Configuration de la led PA.5 en sortie
+	RCC->APB2ENR |= RCC_APB2ENR_IOPAEN; 
+	GPIOA->CRL &= ~(0xF << 20); 
+	GPIOA->CRL |= (0x1 << 20);
 	
 	
 	

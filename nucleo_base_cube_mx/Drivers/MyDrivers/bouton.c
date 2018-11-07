@@ -3,36 +3,23 @@
 #include "bouton.h"
 #include "gpio.h"
 
+extern	GPIO_InitTypeDef GPIOPB3_Init;
 
-
-void initGPIO (GPIO_InitTypeDef GPIOPin){
+void initGPIO (){
+	
 	__HAL_RCC_GPIOB_CLK_ENABLE(); //activation de l'horloge du GPIOB
 	
-	HAL_GPIO_Init(GPIOB, &GPIOPin);
+	GPIOPB3_Init.Pin = GPIO_PIN_3;
+	GPIOPB3_Init.Mode = GPIO_MODE_IT_RISING;
+	GPIOPB3_Init.Pull = GPIO_NOPULL;
 	
-}
-
-void initTimer2(void){
-	extern TIM_HandleTypeDef HTim2;
-	int Fsorti = 20; //frequence voulu entre chaque reload a la sortie du timer
-	int autoreload = 9000;
-	int prescalerDiv = SystemCoreClock/(Fsorti * (autoreload+1)) - 1;
+	HAL_GPIO_Init(GPIOB, &GPIOPB3_Init);
+	
+	
+	HAL_NVIC_SetPriority(EXTI3_IRQn, 2, 0);
+	HAL_NVIC_EnableIRQ(EXTI3_IRQn); 
 
 	
-	__HAL_RCC_TIM2_CLK_ENABLE(); // Activation de l'horloge du timer 
 	
-	//Conf Timer How to use This driver 41.2.2 (UM1850)
-	HTim2.Instance = TIM2;
-	HTim2.Init.Prescaler = prescalerDiv;
-	HTim2.Init.Period = autoreload;
-	HTim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-
-	HAL_TIM_Base_MspInit(& HTim2); //Configuration du mode du timer en Time Base
-	HAL_TIM_Base_Init(& HTim2); //configure the TIM in the desired functionning mode
-	HAL_NVIC_SetPriority(TIM2_IRQn, 2, 0); //configuration priorite de l'it
-	HAL_NVIC_EnableIRQ(TIM2_IRQn); //autorisation de la demande d'interruption par le timer 2
-	HAL_TIM_Base_Start_IT(& HTim2); //activation de l'interruption au niveau du timer
-
-	HAL_TIM_Base_Start(& HTim2); //demarrage du TIM2
 }
 
