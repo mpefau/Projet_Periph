@@ -115,3 +115,14 @@ void initTimerChenille (void){
 	HAL_TIM_PWM_Start_IT(& HTim1,TIM_CHANNEL_3);
 	HAL_TIM_PWM_Start_IT(& HTim3,TIM_CHANNEL_3);
 }
+
+
+void SetVitesseChenille(int speed){
+	
+	int Fsorti = 50; //frequence voulu entre chaque reload a la sortie du timer
+	int autoreload = 8999;
+	int prescalerDiv = SystemCoreClock/(Fsorti * (autoreload+1)) - 1; //PSC = 159
+	float rapportCyclique = 0.50;
+	float compareValue = (autoreload + 1) * rapportCyclique - 1; //ici 674
+	
+}

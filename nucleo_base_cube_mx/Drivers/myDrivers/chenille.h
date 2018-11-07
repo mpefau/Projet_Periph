@@ -7,5 +7,7 @@ void initTimerChenille(void);
 
 void InitGpioChenille(void);
 
+void SetVitesseChenille(int speed);//speed donnée en pourcentage 
+
 
 #endif
