@@ -4,14 +4,14 @@
 #ifndef BOUTON_C
 #define BOUTON_C
 
-#include "stm32f10x.h"
+
 #include "stm32f1xx_hal.h"
 #include "gpio.h"
 
-GPIO_InitTypeDef GPIOPB3_Init; 
+extern GPIO_InitTypeDef GPIOBPB3_Init;
 
 // Bouton sur PB3
-void initGPIO ();
+void initBouton (void);
 
 
 

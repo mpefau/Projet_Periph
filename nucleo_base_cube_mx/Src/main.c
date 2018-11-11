@@ -47,7 +47,7 @@
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
-	GPIO_InitTypeDef GPIOPB3_Init;  //Broche B3 pour le bouton en facade
+GPIO_InitTypeDef GPIOBPB3_Init; 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 
@@ -106,7 +106,7 @@ int main(void)
 	//configuration du Pin ou le bouton est branché 
 
 	
-	InitGPIO();
+	initBouton();
 	
 		//Configuration de la led PA.5 en sortie
 	RCC->APB2ENR |= RCC_APB2ENR_IOPAEN; 
