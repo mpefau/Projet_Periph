@@ -5,7 +5,7 @@
 
 extern	GPIO_InitTypeDef GPIOPB3_Init;
 
-void initGPIO (){
+void InitBouton (){
 	
 	__HAL_RCC_GPIOB_CLK_ENABLE(); //activation de l'horloge du GPIOB
 	
@@ -15,11 +15,7 @@ void initGPIO (){
 	
 	HAL_GPIO_Init(GPIOB, &GPIOPB3_Init);
 	
-	
 	HAL_NVIC_SetPriority(EXTI3_IRQn, 2, 0);
 	HAL_NVIC_EnableIRQ(EXTI3_IRQn); 
-
-	
-	
 }
 

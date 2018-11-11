@@ -106,7 +106,7 @@ int main(void)
 	//configuration du Pin ou le bouton est branché 
 
 	
-	InitGPIO();
+	InitBouton();
 	
 		//Configuration de la led PA.5 en sortie
 	RCC->APB2ENR |= RCC_APB2ENR_IOPAEN; 

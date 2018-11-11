@@ -11,7 +11,7 @@
 GPIO_InitTypeDef GPIOPB3_Init; 
 
 // Bouton sur PB3
-void initGPIO ();
+void InitBouton ();
 
 
 
