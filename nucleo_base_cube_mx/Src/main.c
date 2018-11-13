@@ -103,14 +103,6 @@ int main(void)
 	timer2 = newTimer(TIM2,71,9999);
 	startTimer(&timer2);
 
-	// 2 : Configuration de l'interruption sur débordement de TIM2
-	// Fixer la priorite de l'IT 28 à 2
-	HAL_NVIC_SetPriority(TIM2_IRQn,2,2);
-	// Autoriser l'interruption côté NVIC
-	HAL_NVIC_EnableIRQ(TIM2_IRQn);
-	// Autoriser l'interruption côté timer
-	HAL_TIM_Base_Start_IT(&timer2);
-	
 	// creer et initialiser un nouvel ADC
 	HandleADC = newADC();
 	HAL_ADC_Init(&HandleADC);
@@ -126,6 +118,14 @@ int main(void)
 	HAL_NVIC_SetPriority(ADC1_IRQn,2,2);
 	// Autoriser l'interruption côté NVIC
 	HAL_NVIC_EnableIRQ(ADC1_IRQn);
+	
+	// Configuration de l'interruption sur débordement de TIM2
+	// Fixer la priorite de l'IT 28 à 2
+	HAL_NVIC_SetPriority(TIM2_IRQn,2,2);
+	// Autoriser l'interruption côté NVIC
+	HAL_NVIC_EnableIRQ(TIM2_IRQn);
+	// Autoriser l'interruption côté timer
+	HAL_TIM_Base_Start_IT(&timer2);
 
   /* USER CODE END 2 */
 
