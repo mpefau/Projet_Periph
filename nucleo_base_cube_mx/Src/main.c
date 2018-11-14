@@ -102,6 +102,9 @@ int main(void)
 	// Création et démarrage de timer2
 	timer2 = newTimer(TIM2,71,9999);
 	startTimer(&timer2);
+	
+	// Définition de PA4 en Analog Input
+	setAnalogInput(GPIOA,4);
 
 	// creer et initialiser un nouvel ADC
 	HandleADC = newADC();

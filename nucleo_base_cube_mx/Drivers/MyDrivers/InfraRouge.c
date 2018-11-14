@@ -1,7 +1,7 @@
 #include "InfraRouge.h"
 
 // renvoi un ADC_HandleTypeDef de ADC1
-ADC_HandleTypeDef newADC() {
+ADC_HandleTypeDef newADC(void) {
 	
 	ADC_HandleTypeDef new_adc;
 	
@@ -54,5 +54,17 @@ void startTimer(TIM_HandleTypeDef * timer) {
 	HAL_TIM_Base_Init(timer);
 	// Demarrage de timer
 	HAL_TIM_Base_Start(timer);
+	
+}
+
+void setAnalogInput(GPIO_TypeDef * GPIO, uint32_t pin) {
+	
+	GPIO_InitTypeDef GPIO_InitStruct;
+	
+	/*Configure GPIO pin */
+  GPIO_InitStruct.Pin = pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIO, &GPIO_InitStruct);
 	
 }

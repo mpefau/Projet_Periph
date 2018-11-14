@@ -87,6 +87,7 @@ void EXTI15_10_IRQHandler(void)
 /* USER CODE BEGIN 1 */
 void TIM2_IRQHandler(void) {
 	HAL_TIM_IRQHandler(&timer2);
+	HAL_ADC_Start_IT(&HandleADC);
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
@@ -100,12 +101,6 @@ void ADC1_IRQHandler(void) {
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef * hadc) {
 	resultat = HAL_ADC_GetValue(&HandleADC);
 	HAL_ADC_Stop_IT(&HandleADC);
-	
-	if(resultat > 0x0800) {
-		LD2_GPIO_Port->ODR |= LD2_Pin;
-	} else {
-		LD2_GPIO_Port->ODR &= ~LD2_Pin;
-	}
 }
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
