@@ -100,7 +100,7 @@ int main(void)
 
 	bouger_couvercle(RC_OUVERTURE_BOITE);
 	
-	/* HAL_Delay(500);
+	HAL_Delay(500);
 	
 	bouger_patte(RC_PATTE_SORTIE);
 	
@@ -110,7 +110,7 @@ int main(void)
 	
 	HAL_Delay(500);
 	
-	bouger_couvercle(RC_FERMETURE_BOITE); */
+	bouger_couvercle(RC_FERMETURE_BOITE); 
 	
   /* USER CODE END 2 */
 

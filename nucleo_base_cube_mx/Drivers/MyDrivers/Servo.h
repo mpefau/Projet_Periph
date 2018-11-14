@@ -10,11 +10,12 @@
 #define PSC_20MS 99
 
 // Rapports cyclique des différentes commandes PWM des servos
+//1312 pour appuyer sur le bouton et 341 pour etre dans la boite
 //
 #define RC_FERMETURE_BOITE 0.036
 #define RC_OUVERTURE_BOITE 0.075
-#define RC_PATTE_RENTREE 0.025
-#define RC_PATTE_SORTIE 0.05
+#define RC_PATTE_RENTREE 0.0234
+#define RC_PATTE_SORTIE 0.091
 
 	extern TIM_HandleTypeDef HandleTIM2;
 	extern TIM_OC_InitTypeDef initPWM_patte;
