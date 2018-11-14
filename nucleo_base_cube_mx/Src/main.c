@@ -39,16 +39,21 @@
 #include "main.h"
 #include "stm32f1xx_hal.h"
 #include "gpio.h"
+#include "InfraRouge.h"
 
 /* USER CODE BEGIN Includes */
-
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+	// variable globale represantant TIM2
+	TIM_HandleTypeDef timer2;
+	// variable globale represantant ADC1
+	ADC_HandleTypeDef HandleADC;
+	// variable stockage sortie ADC
+	uint32_t resultat = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -90,6 +95,40 @@ int main(void)
   MX_GPIO_Init();
 
   /* USER CODE BEGIN 2 */
+	
+	// Activation de la clock de TIM2
+	__HAL_RCC_TIM2_CLK_ENABLE();
+	
+	// Création et démarrage de timer2
+	timer2 = newTimer(TIM2,71,9999);
+	startTimer(&timer2);
+	
+	// Définition de PA4 en Analog Input
+	setAnalogInput(GPIOA,4);
+
+	// creer et initialiser un nouvel ADC
+	HandleADC = newADC();
+	HAL_ADC_Init(&HandleADC);
+	
+	// creer le channel associé à cet ADC
+	ADC_ChannelConfTypeDef chan4 = newChan(ADC_CHANNEL_4,1,ADC_SAMPLETIME_7CYCLES_5);
+	
+	// Configurer HandleADC sur le channel 1
+	HAL_ADC_ConfigChannel(&HandleADC,&chan4);
+	
+	// Configuration de l'interruption sur ADC1
+	// Fixer la priorite de l'IT à 2
+	HAL_NVIC_SetPriority(ADC1_IRQn,2,2);
+	// Autoriser l'interruption côté NVIC
+	HAL_NVIC_EnableIRQ(ADC1_IRQn);
+	
+	// Configuration de l'interruption sur débordement de TIM2
+	// Fixer la priorite de l'IT 28 à 2
+	HAL_NVIC_SetPriority(TIM2_IRQn,2,2);
+	// Autoriser l'interruption côté NVIC
+	HAL_NVIC_EnableIRQ(TIM2_IRQn);
+	// Autoriser l'interruption côté timer
+	HAL_TIM_Base_Start_IT(&timer2);
 
   /* USER CODE END 2 */
 
