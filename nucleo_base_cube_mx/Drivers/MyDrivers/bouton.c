@@ -10,7 +10,7 @@ void initBouton (void){
 	
 	GPIOBPB3_Init.Pin = GPIO_PIN_3;
 	GPIOBPB3_Init.Mode = GPIO_MODE_IT_RISING;
-	GPIOBPB3_Init.Pull = GPIO_NOPULL;
+	GPIOBPB3_Init.Pull = GPIO_PULLDOWN;
 	
 	HAL_GPIO_Init(GPIOB, &GPIOBPB3_Init);
 	

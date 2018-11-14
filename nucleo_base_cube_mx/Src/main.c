@@ -64,14 +64,11 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 int compteur = 0;
 void EXTI3_IRQHandler (void){
-	if(compteur == 1) {
-		GPIOA->ODR |= (0x1 << 5); //allumage de la led
-		compteur = 0;
-	}
-	else {
-		GPIOA->ODR &= ~(0x1 << 5); //extinction de la led
-		compteur = 1;
-	}
+	EXTI->PR |= 1<<3;
+	GPIOA->ODR ^= (0x1 << 5); //allumage de la led
+
+
+	
 }
 /* USER CODE END 0 */
 
